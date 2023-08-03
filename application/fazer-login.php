@@ -16,8 +16,7 @@
     $bd->conectar();
     $sql = 'SELECT * FROM usuarios WHERE usuario=? AND senha=?';
     $params = [$usuario, $senha];
-    //var_dump($params);
-    $dados = $bd->buscarUm($sql, $params);
+    $dados = $bd->buscarRegistro($sql, $params);
 
     // Verificar se a consulta no BD retornou pelo menos um linha
     if (is_array($dados)) {

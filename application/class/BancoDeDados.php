@@ -19,7 +19,7 @@
         }
 
         //BUSCAR
-        public function buscarUm($sql, $param = []) {
+        public function buscarRegistro($sql, $param = []) {
             try{
                 $stmt = $this->conexao->prepare($sql);
                 $stmt->execute($param);
@@ -30,7 +30,7 @@
             }
         }
 
-        public function buscarTodos($sql, $param = []) {
+        public function buscarRegistros($sql, $param = []) {
             try{
                 $stmt = $this->conexao->prepare($sql);
                 $stmt->execute($param);
@@ -42,10 +42,10 @@
         }
 
         //INSERIR
-        public function inserir($sql, $param = []){
+        public function inserirRegistro($sql, $param = []){
             try{
                 $stmt = $this->conexao->prepare($sql);
-                $stmt->execute();
+                $stmt->execute($param);
                 return TRUE;
             }catch(PDOException $error){
                 throw new ErrorException($error->getMessage());
@@ -53,10 +53,10 @@
         }
 
         //REMOVER
-        public function deletar($sql, $param = []){
+        public function deletarRegistro($sql, $param = []){
             try{
                 $stmt = $this->conexao->prepare($sql);
-                $stmt->execute();
+                $stmt->execute($param);
                 return TRUE;
             }catch(PDOException $error){
                 throw new ErrorException($error->getMessage());
@@ -64,10 +64,10 @@
         }
 
         //ALTERAR
-        public function atualizar($sql, $param = []){
+        public function atualizarRegistro($sql, $param = []){
             try{
                 $stmt = $this->conexao->prepare($sql);
-                $stmt->execute();
+                $stmt->execute($param);
                 return TRUE;
             }catch(PDOException $error){
                 throw new ErrorException($error->getMessage());

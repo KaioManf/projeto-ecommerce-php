@@ -21,12 +21,9 @@
     move_uploaded_file($origemImagem, "uploads/$nomeImagem");
     
     // Conexão com Banco de Dados
-    $strConnection = "mysql:host=localhost;dbname=db_produtos";
-    $db_usuario = 'root';
-    $db_senha = 'senai';
-    $conexao = new PDO($strConnection, $db_usuario, $db_senha);
-
-    // SQL
+    require_once 'class/BancoDeDados.php';
+    $bd = new BancoDeDados();
+    $bd->conectar();
     $sql = "INSERT INTO produtos (
                 nome, 
                 qtd_estoque, 
@@ -35,21 +32,21 @@
                 dislikes,
                 imagem)
             VALUES (
-                :nome, 
-                :qtd_estoque,
-                :preco_venda, 
+                ?, 
+                ?,
+                ?, 
                 0,
                 0,
-                :imagem
+                ?
             )";
-    $stmt = $conexao->prepare($sql);
-    $stmt->bindParam(':nome', $formulario['nome']);
-    $stmt->bindParam(':qtd_estoque', $formulario['qtdEstoque']);
-    $stmt->bindParam(':preco_venda', $formulario['preco']);
-    $stmt->bindParam(':imagem', $nomeImagem);
-    
-    // Execuntado o sql no bd
-    if ($stmt->execute()) {
+    $params = [
+            $formulario['nome'],
+            $formulario['qtdEstoque'],
+            $formulario['preco'],
+            $nomeImagem
+    ];
+
+    if ($bd->inserirRegistro($sql, $params)) {
         $mensagem = "Dados cadastrados com sucesso!";
     } else {
         $mensagem = "Não foi possível cadastrar os dados!";
@@ -58,5 +55,5 @@
     // Alerta js com o resultado
     echo "<script>
         alert('$mensagem');
-        window.location = '../sistema.php';
+        window.location = '../sistema.php?tela=produtos';
     </script>";

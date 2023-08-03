@@ -37,7 +37,7 @@
                     $bd = new BancoDeDados;
                     $bd->conectar();
                     $sql = 'SELECT * FROM produtos';
-                    $dados = $bd->buscarTodos($sql);
+                    $dados = $bd->buscarRegistros($sql);
 
                     foreach ($dados as $linha) {
                         echo "<div class='col'>
@@ -66,7 +66,7 @@
 
     <footer class="text-body-secondary py-5">
         <div class="container">
-            <p class="mb-1">&copy; Situação de Aprendizagem PHP</p>
+            <p class="text-center text-body-secondary">&copy; 2023 - Projeto S.A.</p>
         </div>
     </footer>
 
